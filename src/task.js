@@ -1,5 +1,3 @@
-var q = require( __dirname + '/utils/promise' )
-
 module.exports = function Task ( id, code ) {
   var _self = this
 
@@ -10,25 +8,19 @@ module.exports = function Task ( id, code ) {
   }
 
   _self.execute = function () {
-    var promise = q.promise()
-    try {
-      var executionReply = code( function () {
-        try {
-          promise.resolve()
-        } catch ( e ) {}
-      } )
-      if ( typeof executionReply !== 'undefined' ) {
-        try {
-          promise.resolve()
-        } catch ( e ) {}
-      }
-    } catch ( e ) {
+    var promise = new Promise( ( resolve, reject ) => {
       try {
-        promise.reject()
-      } catch ( e ) {}
-      console.error( 'Error executing task ' + _self.id )
-      throw e
-    }
-    return promise.result
+        var executionReply = code( function () {
+          resolve()
+        } )
+        if ( typeof executionReply !== 'undefined' ) {
+          resolve()
+        }
+      } catch ( e ) {
+        reject()
+        throw e
+      }
+    } )
+    return promise
   }
 }

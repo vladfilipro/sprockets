@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "author": "Vlad Filip ( vlad.filip.dev@gmail.com )",
     "description": "A simple task runner",
+    "engines" : { "node" : ">=5.0.0" },
     "keywords": [
         "sprockets",
         "tools",

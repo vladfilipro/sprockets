@@ -1,9 +1,8 @@
 var Task = require( __dirname + '/task' )
-var q = require( __dirname + '/utils/promise' )
 
 var tasks = {}
 
-var add = function ( id, f ) {
+var add = ( id, f ) => {
   if ( tasks[ f ] !== undefined ) {
     throw new Error( 'A task with the id ' + id + ' has already been defined' )
   }
@@ -11,40 +10,53 @@ var add = function ( id, f ) {
   return methods
 }
 
-var remove = function ( id ) {
+var remove = ( id ) => {
   delete tasks[ id ]
   return methods
 }
 
-var get = function ( id ) {
+var get = ( id ) => {
   if ( !tasks[ id ] ) {
     throw new Error( 'Task ' + id + ' does not exist.' )
   }
   return tasks[ id ]
 }
 
-var getTaskPromise = function ( task ) {
+var getTaskPromise = ( task ) => {
   return ( typeof task === 'string' ) ? get( task ).run() : task.run()
 }
 
-var run = function () {
-  var args = arguments
-  var list = []
-  args.forEach( function ( task ) {
-    if ( Array.isArray( task ) ) {
-      list.push( q.all.async( task.map( getTaskPromise ) ) )
-    } else {
-      list.push( getTaskPromise( task ) )
-    }
+var runSync = () => {
+  var list = [ ...arguments ].map( getTaskPromise )
+  var resolveSync = ( promises, resolve, reject ) => {
+    var promise = promises.splice( 0, 1 )
+    promise.then( () => {
+      if ( promises.length > 0 ) {
+        resolveSync( promises, resolve, reject )
+      } else {
+        resolve()
+      }
+    } ).catch( () => {
+      reject()
+    } )
+  }
+  return new Promise( ( resolve, reject ) => {
+    resolveSync( list, resolve, reject )
   } )
-  return q.all.sync( list )
+}
+
+var runAsync = () => {
+  var list = [ ...arguments ].map( getTaskPromise )
+  return Promise.all( list )
 }
 
 var methods = {
   add: add,
   remove: remove,
   get: get,
-  run: run
+  runSync: runSync,
+  run: runAsync,
+  utils: require( __dirname + '/utils' )
 }
 
 module.exports = methods
