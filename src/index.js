@@ -1,8 +1,8 @@
-var Task = require( __dirname + '/task' )
+let Task = require( __dirname + '/task' )
 
-var tasks = {}
+let tasks = {}
 
-var add = ( id, f ) => {
+let add = ( id, f ) => {
   if ( tasks[ f ] !== undefined ) {
     throw new Error( 'A task with the id ' + id + ' has already been defined' )
   }
@@ -10,26 +10,26 @@ var add = ( id, f ) => {
   return methods
 }
 
-var remove = ( id ) => {
+let remove = ( id ) => {
   delete tasks[ id ]
   return methods
 }
 
-var get = ( id ) => {
+let get = ( id ) => {
   if ( !tasks[ id ] ) {
     throw new Error( 'Task ' + id + ' does not exist.' )
   }
   return tasks[ id ]
 }
 
-var getTaskPromise = ( task ) => {
+let getTaskPromise = ( task ) => {
   return ( typeof task === 'string' ) ? get( task ).run() : task.run()
 }
 
-var runSync = () => {
-  var list = [ ...arguments ].map( getTaskPromise )
-  var resolveSync = ( promises, resolve, reject ) => {
-    var promise = promises.splice( 0, 1 )
+let runSync = () => {
+  let list = [ ...arguments ].map( getTaskPromise )
+  let resolveSync = ( promises, resolve, reject ) => {
+    let promise = promises.splice( 0, 1 )
     promise.then( () => {
       if ( promises.length > 0 ) {
         resolveSync( promises, resolve, reject )
@@ -45,12 +45,12 @@ var runSync = () => {
   } )
 }
 
-var runAsync = () => {
-  var list = [ ...arguments ].map( getTaskPromise )
+let runAsync = () => {
+  let list = [ ...arguments ].map( getTaskPromise )
   return Promise.all( list )
 }
 
-var methods = {
+let methods = {
   add: add,
   remove: remove,
   get: get,

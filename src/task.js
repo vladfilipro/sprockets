@@ -1,5 +1,5 @@
 module.exports = function Task ( id, code ) {
-  var _self = this
+  let _self = this
 
   _self.name = id
 
@@ -8,9 +8,9 @@ module.exports = function Task ( id, code ) {
   }
 
   _self.execute = function () {
-    var promise = new Promise( ( resolve, reject ) => {
+    let promise = new Promise( ( resolve, reject ) => {
       try {
-        var executionReply = code( function () {
+        let executionReply = code( function () {
           resolve()
         } )
         if ( typeof executionReply !== 'undefined' ) {
