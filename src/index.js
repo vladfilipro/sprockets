@@ -55,8 +55,7 @@ let methods = {
   remove: remove,
   get: get,
   runSync: runSync,
-  run: runAsync,
-  utils: require( __dirname + '/utils' )
+  run: runAsync
 }
 
 module.exports = methods

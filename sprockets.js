@@ -21,8 +21,13 @@ args.forEach( ( val, index ) => {
   if ( val === '-f' ) {
     config.filename = args[index + 1]
   }
+  if ( val === '-g' ) {
+    config.filename = ''
+  }
 } )
 config.task = args[args.length - 1]
 
-init( config.filename )
+if ( config.filename ) {
+  init( config.filename )
+}
 sprockets.get( config.task ).execute()
