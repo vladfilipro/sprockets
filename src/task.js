@@ -1,26 +1,38 @@
-module.exports = function Task ( id, code ) {
-  let _self = this
+'use strict'
 
-  _self.name = id
+let terminal = require( __dirname + '/terminal' )
 
-  if ( typeof code !== 'function' ) {
-    throw new Error( 'Invalid task definition.' )
+class Task {
+
+  constructor ( id, code ) {
+    if ( typeof code !== 'function' || !code.apply ) {
+      throw new Error( 'Invalid task definition.' )
+    }
+
+    this.name = id
+    this.code = code
   }
 
-  _self.execute = function () {
+  execute () {
+    terminal.start( this.name )
     let promise = new Promise( ( resolve, reject ) => {
       try {
-        let executionReply = code( function () {
+        let executionReply = this.code( () => {
           resolve()
+          terminal.stop( this.name )
         } )
         if ( typeof executionReply !== 'undefined' ) {
           resolve()
+          terminal.stop( this.name )
         }
       } catch ( e ) {
         reject()
+        terminal.error( this.name )
         throw e
       }
     } )
     return promise
   }
 }
+
+module.exports = Task

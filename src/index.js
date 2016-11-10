@@ -1,3 +1,5 @@
+'use strict'
+
 let Task = require( __dirname + '/task' )
 
 let tasks = {}
@@ -23,10 +25,10 @@ let get = ( id ) => {
 }
 
 let getTaskPromise = ( task ) => {
-  return ( typeof task === 'string' ) ? get( task ).run() : task.run()
+  return ( typeof task === 'string' ) ? get( task ).execute() : task.execute()
 }
 
-let runSync = () => {
+let runSync = function () { // cannot use arguments if we use arrow function
   let list = [ ...arguments ].map( getTaskPromise )
   let resolveSync = ( promises, resolve, reject ) => {
     let promise = promises.splice( 0, 1 )
@@ -45,7 +47,7 @@ let runSync = () => {
   } )
 }
 
-let runAsync = () => {
+let runAsync = function () { // cannot use arguments if we use arrow function
   let list = [ ...arguments ].map( getTaskPromise )
   return Promise.all( list )
 }
