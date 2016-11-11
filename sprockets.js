@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 'use strict'
 
 let sprockets = require( __dirname + '/src/index.js' )
