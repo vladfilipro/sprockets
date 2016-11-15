@@ -23,7 +23,7 @@
         "url": "https://github.com/vladfilipro/sprockets/issues"
     },
     "bin": {
-        "sprockets": "sprockets.js"
+        "sprockets": "./sprockets.js"
     },
     "main": "./src/index.js"
 }
