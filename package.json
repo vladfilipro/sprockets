@@ -7,7 +7,7 @@
         "sprockets",
         "tools",
         "env",
-        "environment"
+        "environment",
         "task",
         "runner"
     ],
