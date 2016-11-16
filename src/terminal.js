@@ -1,7 +1,7 @@
 'use strict'
 
 const Console = require( 'console' ).Console
-const styles = {
+const STYLES = {
   'reset': '0',
   'hicolor': '1',
   'underline': '4',
@@ -24,7 +24,7 @@ const styles = {
   'bg_white': '47'
 }
 let c = ( style ) => {
-  return '\x1B[' + styles[style] + 'm'
+  return '\x1B[' + STYLES[style] + 'm'
 }
 
 function Terminal ( stdout, stderr ) {

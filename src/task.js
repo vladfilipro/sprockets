@@ -1,6 +1,6 @@
 'use strict'
 
-let terminal = require( __dirname + '/terminal' )
+const terminal = require( __dirname + '/terminal' )
 
 class Task {
 
