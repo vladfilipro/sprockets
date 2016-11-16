@@ -7,7 +7,7 @@ const fs = require( 'fs' )
 const path = require( 'path' )
 const sass = require( 'node-sass' )
 
-let input = './src/styles/indexs.scss'
+let input = './src/styles/index.scss'
 let output = './build/styles/app.scss'
 
 let fileExists = function ( file ) {
