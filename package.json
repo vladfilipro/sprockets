@@ -29,6 +29,7 @@
     "dependencies": {
         "browserify": "*",
         "babelify": "*",
-        "node-sass": "*"
+        "node-sass": "*",
+        "uglify-js": "*"
     }
 }
