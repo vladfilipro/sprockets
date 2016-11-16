@@ -43,8 +43,8 @@ function Terminal ( stdout, stderr ) {
     output.log( c( 'yellow' ) + '[ ' + c( 'hicolor' ) + ' END ' + c( 'yellow' ) + '][ ' + c( 'hicolor' ) + timestamp() + c( 'yellow' ) + ' ]' + c( 'reset' ) + ' >> ' + c( 'cyan' ) + taskname + c( 'reset' ) )
   }
 
-  this.error = function ( taskname ) {
-    output.log( c( 'yellow' ) + '[ ' + c( 'red' ) + ' ERROR ' + c( 'yellow' ) + '][ ' + c( 'red' ) + timestamp() + c( 'yellow' ) + ' ]' + c( 'reset' ) + ' >> ' + c( 'cyan' ) + taskname + c( 'reset' ) )
+  this.error = function ( taskname, error ) {
+    output.log( c( 'yellow' ) + '[ ' + c( 'red' ) + ' ERROR ' + c( 'yellow' ) + '][ ' + c( 'red' ) + timestamp() + c( 'yellow' ) + ' ]' + c( 'reset' ) + ' >> ' + c( 'cyan' ) + taskname + c( 'reset' ) + ' - ' + error )
   }
 }
 

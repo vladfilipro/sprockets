@@ -27,7 +27,7 @@ class Task {
         }
       } catch ( e ) {
         reject()
-        terminal.error( this.name )
+        terminal.error( this.name, e )
         throw e
       }
     } )
