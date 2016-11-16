@@ -17,18 +17,22 @@ class Task {
     terminal.start( this.name )
     let promise = new Promise( ( resolve, reject ) => {
       try {
-        let executionReply = this.code( () => {
+        let executionReply = this.code( ( err ) => {
+          if ( err ) {
+            reject()
+            terminal.error( this.name, err )
+            return
+          }
           resolve()
           terminal.stop( this.name )
         } )
-        if ( typeof executionReply !== 'undefined' ) {
+        if ( executionReply ) {
           resolve()
           terminal.stop( this.name )
         }
-      } catch ( e ) {
+      } catch ( err ) {
         reject()
-        terminal.error( this.name, e )
-        throw e
+        terminal.error( this.name, err )
       }
     } )
     return promise

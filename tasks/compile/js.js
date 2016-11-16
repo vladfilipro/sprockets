@@ -15,12 +15,7 @@ sprockets.add( 'js', ( done ) => {
   browserify( input, { debug: true } )
         .transform( babelify )
         .bundle()
-        .on( 'error', function ( err ) { console.error( err ); this.emit( 'end' ) } )
+        .on( 'error', function ( err ) { this.emit( 'end' ) } )
+        .on( 'end', done )
         .pipe( fs.createWriteStream( output ) )
-        .on( 'end', function ( err ) {
-          if ( err ) {
-            throw err
-          }
-          done()
-        } )
 } )

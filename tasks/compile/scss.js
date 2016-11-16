@@ -7,7 +7,7 @@ const fs = require( 'fs' )
 const path = require( 'path' )
 const sass = require( 'node-sass' )
 
-let input = './src/styles/index.scss'
+let input = './src/styles/indexs.scss'
 let output = './build/styles/app.scss'
 
 let fileExists = function ( file ) {
@@ -57,7 +57,6 @@ let resolveRelativeImporter = function ( url, file, done ) {
 sprockets.add( 'scss', ( cb ) => {
   sass.render( {
     file: input,
-    errLogToConsole: true,
     outputStyle: 'compressed',
     importer: function ( url, file, done ) {
       if ( !resolveNodeImporter( url, file, done ) ) {
@@ -70,7 +69,8 @@ sprockets.add( 'scss', ( cb ) => {
     }
   }, function ( err, result ) {
     if ( err ) {
-      throw err
+      cb( err )
+      return
     }
     mkdir( output )
     fs.writeFile( output, result.css, cb )
