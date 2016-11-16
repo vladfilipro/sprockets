@@ -9,6 +9,14 @@ const sass = require( 'node-sass' )
 let input = './src/styles/index.scss'
 let output = './build/styles/app.scss'
 
+var mkdir = function ( dist ) {
+  dist = path.dirname( path.resolve( dist ) )
+  if ( !fs.existsSync( dist ) ) {
+    mkdir( path.dirname( dist ) )
+    fs.mkdirSync( dist )
+  }
+}
+
 let fileExists = function ( file ) {
   try {
     fs.lstatSync( file )
@@ -71,6 +79,7 @@ sprockets.add( 'scss', ( cb ) => {
     if ( err ) {
       throw err
     }
+    mkdir( output )
     fs.writeFile( output, result.css, cb )
   } )
 } )

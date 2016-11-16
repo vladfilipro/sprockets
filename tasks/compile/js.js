@@ -11,7 +11,7 @@ let input = './src/scripts/index.js'
 let output = './build/scripts/app.js'
 
 var mkdir = function ( dist ) {
-  dist = path.resolve( dist )
+  dist = path.dirname( path.resolve( dist ) )
   if ( !fs.existsSync( dist ) ) {
     mkdir( path.dirname( dist ) )
     fs.mkdirSync( dist )
@@ -19,11 +19,12 @@ var mkdir = function ( dist ) {
 }
 
 sprockets.add( 'js', ( done ) => {
+  mkdir( output )
   browserify( input, { debug: true } )
         .transform( babelify )
         .bundle()
         .on( 'error', function ( err ) { console.error( err ); this.emit( 'end' ) } )
-        .pipe( fs.createWriteStream( mkdir( output ) ) )
+        .pipe( fs.createWriteStream( output ) )
         .on( 'end', function ( err ) {
           if ( err ) {
             throw err
