@@ -27,9 +27,7 @@
     },
     "main": "./src/index.js",
     "dependencies": {
-        "webpack": "*",
-        "babel-loader": "*",
-        "copy-webpack-plugin": "*",
-        "extract-text-webpack-plugin": "*"
+        "browserify": "*",
+        "babelify": "*"
     }
 }

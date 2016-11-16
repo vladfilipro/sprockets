@@ -1,7 +1,6 @@
 'use strict'
 
 // Load built-in tasks
-const TASKS_PATH = __dirname + '/../tasks/'
-require( TASKS_PATH + 'compile' )
+require( __dirname + '/../tasks' )
 
 module.exports = require( __dirname + '/sprockets' )

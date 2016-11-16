@@ -27,19 +27,23 @@ let c = ( style ) => {
   return '\x1B[' + STYLES[style] + 'm'
 }
 
+let timestamp = () => {
+  return ( new Date() ).getTime()
+}
+
 function Terminal ( stdout, stderr ) {
   let output = new Console( stdout || process.stdout, stderr || process.stderr )
 
   this.start = function ( taskname ) {
-    output.log( c( 'bg_cyan' ) + c( 'hicolor' ) + ' > STARTED < ' + c( 'reset' ) + ' ' + c( 'yellow' ) + taskname + c( 'reset' ) )
+    output.log( c( 'yellow' ) + '[ ' + c( 'hicolor' ) + ' START ' + c( 'yellow' ) + '][ ' + c( 'hicolor' ) + timestamp() + c( 'yellow' ) + ' ]' + c( 'reset' ) + ' >> ' + c( 'cyan' ) + taskname + c( 'reset' ) )
   }
 
   this.stop = function ( taskname ) {
-    output.log( c( 'bg_green' ) + c( 'hicolor' ) + ' < ENDED > ' + c( 'reset' ) + ' ' + c( 'yellow' ) + taskname + c( 'reset' ) )
+    output.log( c( 'yellow' ) + '[ ' + c( 'hicolor' ) + ' END ' + c( 'yellow' ) + '][ ' + c( 'hicolor' ) + timestamp() + c( 'yellow' ) + ' ]' + c( 'reset' ) + ' >> ' + c( 'cyan' ) + taskname + c( 'reset' ) )
   }
 
   this.error = function ( taskname ) {
-    output.log( c( 'bg_red' ) + c( 'hicolor' ) + ' < ERROR > ' + c( 'reset' ) + ' ' + c( 'yellow' ) + taskname + c( 'reset' ) )
+    output.log( c( 'yellow' ) + '[ ' + c( 'red' ) + ' ERROR ' + c( 'yellow' ) + '][ ' + c( 'red' ) + timestamp() + c( 'yellow' ) + ' ]' + c( 'reset' ) + ' >> ' + c( 'cyan' ) + taskname + c( 'reset' ) )
   }
 }
 
