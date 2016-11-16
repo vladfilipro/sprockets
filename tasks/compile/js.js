@@ -1,22 +1,14 @@
 'use strict'
 
 const sprockets = require( __dirname + '/../../src/sprockets' )
+const mkdir = require( __dirname + '/../../utils/mkdir' )
 
 const fs = require( 'fs' )
-const path = require( 'path' )
 const browserify = require( 'browserify' )
 const babelify = require( 'babelify' )
 
 let input = './src/scripts/index.js'
 let output = './build/scripts/app.js'
-
-var mkdir = function ( dist ) {
-  dist = path.dirname( path.resolve( dist ) )
-  if ( !fs.existsSync( dist ) ) {
-    mkdir( path.dirname( dist ) )
-    fs.mkdirSync( dist )
-  }
-}
 
 sprockets.add( 'js', ( done ) => {
   mkdir( output )

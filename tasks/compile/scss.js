@@ -1,6 +1,7 @@
 'use strict'
 
 const sprockets = require( __dirname + '/../../src/sprockets' )
+const mkdir = require( __dirname + '/../../utils/mkdir' )
 
 const fs = require( 'fs' )
 const path = require( 'path' )
@@ -8,14 +9,6 @@ const sass = require( 'node-sass' )
 
 let input = './src/styles/index.scss'
 let output = './build/styles/app.scss'
-
-var mkdir = function ( dist ) {
-  dist = path.dirname( path.resolve( dist ) )
-  if ( !fs.existsSync( dist ) ) {
-    mkdir( path.dirname( dist ) )
-    fs.mkdirSync( dist )
-  }
-}
 
 let fileExists = function ( file ) {
   try {
