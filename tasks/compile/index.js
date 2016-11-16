@@ -1,6 +1,6 @@
 'use strict'
 
-const sprockets = require( __dirname + '/../../src/' )
+const sprockets = require( __dirname + '/../../src' )
 
 const webpack = require( 'webpack' )
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' )
