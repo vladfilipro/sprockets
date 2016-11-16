@@ -6,17 +6,27 @@ let sprockets = require( __dirname + '/src/index.js' )
 
 let fs = require( 'fs' )
 
-let init = ( file ) => {
-  fs.stat( file, ( err ) => {
-    if ( err !== null ) {
-      throw err
+let exists = ( file ) => {
+  try {
+    if ( fs.statSync( file ).isFile() ) {
+      return true
     }
-    require( file )
-  } )
+  } catch ( e ) {}
+  return false
 }
 
+let init = ( file ) => {
+  if ( !exists( file ) ) {
+    throw new Error( 'File ' + file + ' not found' )
+  }
+  require( file )
+}
+
+const defaultFile = './sprockets.js'
+
 let config = {
-  filename: './sprockets.js'
+  filename: ( exists( defaultFile ) ) ? defaultFile : false,
+  task: false
 }
 
 let args = process.argv.slice( 2 )
