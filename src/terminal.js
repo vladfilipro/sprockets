@@ -28,7 +28,8 @@ let c = ( style ) => {
 }
 
 let timestamp = () => {
-  return ( new Date() ).getTime()
+  var d = new Date()
+  return d.getFullYear() + '/' + ( d.getMonth() + 1 ) + '/' + d.getDate() + ' ' + ( d.getHours() + 1 ) + ':' + d.getMinutes() + ':' + d.getSeconds() + ':' + d.getMilliseconds()
 }
 
 function Terminal ( stdout, stderr ) {

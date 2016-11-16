@@ -71,7 +71,6 @@ sprockets.add( 'scss', ( cb ) => {
     if ( err ) {
       throw err
     }
-    console.log( result )
-    cb()
+    fs.writeFile( output, result.css, cb )
   } )
 } )
