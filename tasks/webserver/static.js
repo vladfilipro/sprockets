@@ -25,6 +25,8 @@ sprockets.add( 'webserver-dev', ( done ) => {
   } )
 
   apigeon.enableREST()
-
-  return apigeon
+  apigeon.start( 8080, function () {
+    console.log( ' - dev server started' )
+    done()
+  } )
 } )

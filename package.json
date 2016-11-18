@@ -30,6 +30,7 @@
         "browserify": "*",
         "babelify": "*",
         "node-sass": "*",
-        "uglify-js": "*"
+        "uglify-js": "*",
+        "apigeon": "https://github.com/vladfilipro/apigeon.git"
     }
 }
