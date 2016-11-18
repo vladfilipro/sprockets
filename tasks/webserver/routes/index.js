@@ -21,7 +21,7 @@ module.exports = function () {
 
   this.execute = function ( req, cb, ecb ) {
     try {
-      var file = './build' + req.query.path
+      var file = path.resolve( './build' + req.query.path )
       var content = fs.readFileSync( file )
       cb( content, 200, {
         'Content-type': getContentType( file ),

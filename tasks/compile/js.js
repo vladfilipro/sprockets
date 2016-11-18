@@ -15,16 +15,16 @@ sprockets.add( 'js', ( done ) => {
   mkdir( output )
   const chunks = []
   browserify( input )
-        .transform( babelify, { presets: [ 'es2015' ] } )
-        .bundle()
-        .on( 'error', function ( ) { this.emit( 'end' ) } )
-        .on( 'data', ( chunk ) => {
-          chunks.push( chunk.toString() )
-        } )
-        .on( 'end', function () {
-          var code = uglify.minify( chunks.join( '' ), { fromString: true } ).code
-          fs.writeFile( output, code, function ( err ) {
-            done( err )
-          } )
-        } )
+    .transform( babelify, { presets: [ 'es2015' ] } )
+    .bundle()
+    .on( 'error', function ( ) { this.emit( 'end' ) } )
+    .on( 'data', ( chunk ) => {
+      chunks.push( chunk.toString() )
+    } )
+    .on( 'end', function () {
+      var code = uglify.minify( chunks.join( '' ), { fromString: true } ).code
+      fs.writeFile( output, code, function ( err ) {
+        done( err )
+      } )
+    } )
 } )

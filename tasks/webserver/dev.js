@@ -16,7 +16,7 @@ sprockets.add( 'webserver-dev', ( done ) => {
 
       results = url.match( regexFile )
       if ( results ) {
-        var file = ( results[ 1 ] === '' || results[ 1 ] === '/' ) ? 'index.html' : results[ 1 ]
+        var file = ( results[ 1 ] === '' || results[ 1 ] === '/' ) ? '/index.html' : results[ 1 ]
         return '/?path=' + encodeURIComponent( file )
       }
 
