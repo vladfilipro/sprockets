@@ -11,8 +11,8 @@ let output = './build/index.html'
 sprockets.add( 'index', ( done ) => {
   mkdir( output )
   fs.createReadStream( input )
-    .pipe( fs.createWriteStream( output ) )
     .on( 'end', function () {
       done()
     } )
+    .pipe( fs.createWriteStream( output ) )
 } )

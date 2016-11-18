@@ -3,6 +3,7 @@ var fs = require( 'fs' )
 var path = require( 'path' )
 
 var types = {
+  'html': 'text/html',
   'js': 'application/javascript',
   'css': 'text/css',
   'png': 'image/png',
