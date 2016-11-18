@@ -14,8 +14,8 @@ let output = './build/scripts/app.js'
 sprockets.add( 'js', ( done ) => {
   mkdir( output )
   const chunks = []
-  browserify( input, { debug: true } )
-        .transform( babelify )
+  browserify( input )
+        .transform( babelify, { presets: [ 'es2015' ] } )
         .bundle()
         .on( 'error', function ( ) { this.emit( 'end' ) } )
         .on( 'data', ( chunk ) => {
