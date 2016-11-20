@@ -32,7 +32,7 @@ let getTask = ( task ) => {
 let runSync = function () { // cannot use arguments if we use arrow function
   let list = [ ...arguments ].map( getTask )
   let resolveSync = ( tasks, resolve, reject ) => {
-    let task = tasks.splice( 0, 1 )
+    let task = tasks.splice( 0, 1 )[ 0 ]
     task.execute().then( () => {
       if ( tasks.length > 0 ) {
         resolveSync( tasks, resolve, reject )
