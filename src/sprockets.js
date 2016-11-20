@@ -1,6 +1,7 @@
 'use strict'
 
 const Task = require( __dirname + '/task' )
+const fs = require( 'fs' )
 
 let tasks = {}
 
@@ -57,7 +58,12 @@ let methods = {
   remove: remove,
   get: get,
   runSync: runSync,
-  run: runAsync
+  run: runAsync,
+  watch: ( src, task ) => {
+    fs.watch( src, () => {
+      getTaskPromise( task )
+    } )
+  }
 }
 
 module.exports = methods
