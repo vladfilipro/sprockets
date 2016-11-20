@@ -60,7 +60,7 @@ let methods = {
   runSync: runSync,
   run: runAsync,
   watch: ( src, task ) => {
-    fs.watch( src, () => {
+    fs.watch( src, { recursive: true }, () => {
       getTaskPromise( task )
     } )
   }
