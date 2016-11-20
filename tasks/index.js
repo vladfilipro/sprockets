@@ -6,4 +6,6 @@ require( __dirname + '/compile/scss' )
 
 require( __dirname + '/webserver/dev' )
 
+require( __dirname + '/build/test' )
+
 module.exports = true
