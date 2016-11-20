@@ -62,8 +62,9 @@ let methods = {
   runSync: runSync,
   run: runAsync,
   watch: ( src, task ) => {
-    fs.watch( src, { recursive: true }, () => {
-      getTask( task )
+    fs.watch( src, { recursive: true }, ( e, filename ) => {
+      console.log( filename + ' -> was changed' )
+      getTask( task ).execute()
     } )
   }
 }
