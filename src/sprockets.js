@@ -1,6 +1,7 @@
 'use strict'
 
 const Task = require( __dirname + '/task' )
+const fs = require( 'fs' )
 
 let tasks = {}
 
@@ -24,17 +25,17 @@ let get = ( id ) => {
   return tasks[ id ]
 }
 
-let getTaskPromise = ( task ) => {
-  return ( typeof task === 'string' ) ? get( task ).execute() : task.execute()
+let getTask = ( task ) => {
+  return ( typeof task === 'string' ) ? get( task ) : task
 }
 
 let runSync = function () { // cannot use arguments if we use arrow function
-  let list = [ ...arguments ].map( getTaskPromise )
-  let resolveSync = ( promises, resolve, reject ) => {
-    let promise = promises.splice( 0, 1 )
-    promise.then( () => {
-      if ( promises.length > 0 ) {
-        resolveSync( promises, resolve, reject )
+  let list = [ ...arguments ].map( getTask )
+  let resolveSync = ( tasks, resolve, reject ) => {
+    let task = tasks.splice( 0, 1 )[ 0 ]
+    task.execute().then( () => {
+      if ( tasks.length > 0 ) {
+        resolveSync( tasks, resolve, reject )
       } else {
         resolve()
       }
@@ -48,7 +49,9 @@ let runSync = function () { // cannot use arguments if we use arrow function
 }
 
 let runAsync = function () { // cannot use arguments if we use arrow function
-  let list = [ ...arguments ].map( getTaskPromise )
+  let list = [ ...arguments ].map( function ( task ) {
+    return getTask( task ).execute()
+  } )
   return Promise.all( list )
 }
 
@@ -57,7 +60,13 @@ let methods = {
   remove: remove,
   get: get,
   runSync: runSync,
-  run: runAsync
+  run: runAsync,
+  watch: ( src, task ) => {
+    fs.watch( src, { recursive: true }, ( e, filename ) => {
+      console.log( filename + ' -> was changed' )
+      getTask( task ).execute()
+    } )
+  }
 }
 
 module.exports = methods

@@ -19,20 +19,20 @@ class Task {
       try {
         let executionReply = this.code( ( err ) => {
           if ( err ) {
-            reject()
             terminal.error( this.name, err )
+            reject()
             return
           }
-          resolve()
           terminal.stop( this.name )
+          resolve()
         } )
         if ( executionReply ) {
-          resolve()
           terminal.stop( this.name )
+          resolve()
         }
       } catch ( err ) {
-        reject()
         terminal.error( this.name, err )
+        reject()
       }
     } )
     return promise

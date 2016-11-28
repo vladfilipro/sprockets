@@ -1,8 +1,8 @@
 
-var fs = require( 'fs' )
-var path = require( 'path' )
+const fs = require( 'fs' )
+const path = require( 'path' )
 
-var types = {
+const types = {
   'html': 'text/html',
   'js': 'application/javascript',
   'css': 'text/css',
@@ -11,19 +11,19 @@ var types = {
   'mp3': 'audio/mpeg'
 }
 
-var getContentType = function ( file ) {
-  var extension = path.extname( file ).replace( '.', '' )
+let getContentType = function ( file ) {
+  let extension = path.extname( file ).replace( '.', '' )
   return types[ extension ] || 'text/plain'
 }
 
 module.exports = function () {
-  var ErrorClass = this.Error
-  var fail = new ErrorClass( 404 )
+  const ErrorClass = this.Error
+  let fail = new ErrorClass( 404 )
 
   this.execute = function ( req, cb, ecb ) {
     try {
-      var file = path.resolve( './build' + req.query.path )
-      var content = fs.readFileSync( file )
+      let file = path.resolve( './build' + req.query.path )
+      let content = fs.readFileSync( file )
       cb( content, 200, {
         'Content-type': getContentType( file ),
         'Cache-Control': 'max-age=604800, public'
