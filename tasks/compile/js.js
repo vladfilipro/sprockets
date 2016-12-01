@@ -17,7 +17,7 @@ sprockets.add( 'js', ( done ) => {
   browserify( input )
     .transform( babelify, { presets: [ 'es2015' ] } )
     .bundle()
-    .on( 'error', function ( ) { this.emit( 'end' ) } )
+    .on( 'error', function ( e ) { console.error( e ); this.emit( 'end' ) } )
     .on( 'data', ( chunk ) => {
       chunks.push( chunk.toString() )
     } )
