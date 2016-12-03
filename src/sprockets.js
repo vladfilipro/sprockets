@@ -59,6 +59,7 @@ let methods = {
   add: add,
   remove: remove,
   get: get,
+  list: () => tasks,
   runSync: runSync,
   run: runAsync,
   watch: ( src, task ) => {
